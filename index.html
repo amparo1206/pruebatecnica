@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UFT-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link rel="stylesheet" href="./estilos/estilos.css">
+        <!--<script src="./javascript/javascript.js"/>-->
+        <title>API Enterticket</title>
+    </head>
+    <body>
+
+        <main id="app">
+            <section class="card">
+                <ul>
+                    <li><h2>Título</h2></li>
+                    <li>Fecha</li>
+                    <li>Hora</li>
+                    <li>Precio</li>
+                </ul>
+                <button>Evento</button>
+
+            </section>
+        </main>
+
+    </body>
+    <script>
+        const ul = document.getElementById('app'),
+url = 'https://api.enterticket.es/eventos?token=73018268287b38f3dab312979cf5d5e8f52261e34cb976265b08ad8a979bbdb7&limite=9999';
+
+  const createNode = (element) => { return document.createElement(element); }
+  const append = (parent, el) => { return parent.appendChild(el); }
+
+  fetch(url)
+  .then((response) => { return response.json(); })
+  .then( data => {
+    let concerts = data;
+    console.log(concerts); 
+    return concerts.map( concert => { 
+      let li = createNode('li'), 
+          span = createNode('span');
+      span.innerHTML = `${concert.info.nombre}`;  
+      append(li, span);
+      append(ul, li);
+    });
+  })
+  .catch( error => { console.log(error); })
+        </script>
+</html>
